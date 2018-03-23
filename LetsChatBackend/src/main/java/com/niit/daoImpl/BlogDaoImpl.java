@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.niit.dao.BlogDao;
 import com.niit.model.Blog;
 
+
+@SuppressWarnings("deprecation")
 @Service
 @Repository("blogDao")
 public class BlogDaoImpl implements BlogDao {
@@ -107,18 +109,19 @@ public class BlogDaoImpl implements BlogDao {
 			return false;
 		}
 }
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public List<Blog> listBlog(String username) {
 		try {
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
 			List<Blog> blogList = new ArrayList<Blog>();
-			Query query = session.createQuery("FROM Blog where username=:username").setString("username",username);
+	     	Query query = session.createQuery("FROM Blog where username=:username").setString("username",username);
 			blogList = query.list();
 			return blogList;
 		} catch (Exception e) {
 			return null;
 		}
 	}
+
 }
