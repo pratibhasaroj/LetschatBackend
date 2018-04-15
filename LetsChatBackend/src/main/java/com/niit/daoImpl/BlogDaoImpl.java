@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.niit.dao.BlogDao;
 import com.niit.model.Blog;
+import com.niit.model.BlogComment;
 
 
 @SuppressWarnings("deprecation")
@@ -35,7 +36,7 @@ public class BlogDaoImpl implements BlogDao {
 	public boolean addBlog(Blog blog) {
 		// TODO Auto-generated method stub
 		try {
-			sessionFactory.getCurrentSession().save(blog);
+			sessionFactory.getCurrentSession().saveOrUpdate(blog);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -122,6 +123,71 @@ public class BlogDaoImpl implements BlogDao {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+
+	@Override
+	@Transactional
+	public boolean incrementLikes(Blog blog) {
+		 try{
+			 int likes=blog.getLikes();
+			 likes++;
+			 blog.setLikes(likes);
+			 sessionFactory.getCurrentSession().update(blog);
+			 return true;
+		 }catch(Exception e)
+		 {
+			 return false;
+		 }
+	}
+
+
+	@Override
+	@Transactional
+	public boolean addBlogComment(BlogComment blogComment) {
+		try {
+			sessionFactory.getCurrentSession().saveOrUpdate(blogComment);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+
+	@Override
+	@Transactional
+	public boolean deleteBlogComment(BlogComment blogComment) {
+		try {
+			sessionFactory.getCurrentSession().delete(blogComment);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+
+	@Override
+	@Transactional
+	public BlogComment getBlogComment(int commentId) {
+		try {
+			Session session = sessionFactory.openSession();
+			BlogComment blogComment = session.get(BlogComment.class,commentId);
+			return blogComment;
+		} catch (Exception e) {
+			return null;
+		}	
+	}
+
+
+	@Override
+	@Transactional
+	public List<BlogComment> listBlogComments(int blogId) {
+		Session session=sessionFactory.openSession();
+		Query query=session.createQuery("from BlogComment where blogId=:blogId");
+		query.setParameter("blogId", new Integer(blogId));
+		@SuppressWarnings("unchecked")
+		List<BlogComment> listBlogComments=query.list();
+		return listBlogComments;
 	}
 
 }

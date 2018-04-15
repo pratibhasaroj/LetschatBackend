@@ -7,6 +7,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import com.niit.config.DBConfig;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
+	//for socket implementation
 	@Override
 	protected void customizeRegistration(ServletRegistration.Dynamic registration) {
 		System.out.println("customizeRegistration");
@@ -33,4 +34,16 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		return  new String[] { "/" };
 	}
 
-}
+	/*for character encoding in chat for messaging
+	@Override
+	protected Filter[] getServletFilters()
+	{
+		CahracterEncodingFilter encodingFilter=new CharacterEncodingFilter();
+		encodingFilter.setEncoding(StandardCharsets.UTF_8.name());
+		return new Filter[] {encodingFilter};
+		
+	}*/
+	}
+
+	
+	

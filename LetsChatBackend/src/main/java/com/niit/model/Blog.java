@@ -1,6 +1,5 @@
 package com.niit.model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,6 +11,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Component
@@ -36,11 +37,14 @@ public class Blog {
 	@Column(name="userName")
 	private String userName;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	@Column(name="createDate")
-	Timestamp createDate;
+	private	Date createDate;
 	
 	@Column(name="status")
 	private String status;
+	@Column(name="likes")
+	private int likes;
 	
 	public int getBlogId() {
 		return blogId;
@@ -69,8 +73,8 @@ public class Blog {
 	public Date getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate() {
-		this.createDate = new Timestamp(System.currentTimeMillis());
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 	public String getStatus() {
 		return status;
@@ -78,6 +82,13 @@ public class Blog {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public int getLikes() {
+		return likes;
+	}
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
+	
 
 	
 }

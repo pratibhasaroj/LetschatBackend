@@ -1,6 +1,6 @@
 package com.niit.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +11,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 	@Component
@@ -35,8 +37,21 @@ import org.springframework.stereotype.Component;
 		@Column(name="userName")
 		private String userName;
 		
-		@Column(name="createDate")
-		private Timestamp createDate;
+		@JsonFormat(shape=JsonFormat.Shape.STRING,pattern="dd-mm-yyyy")
+		@Column(name = "createdDate")
+		private Date createDate;
+
+		@Column(name = "status")
+		private String status;
+	
+
+		public String getStatus() {
+			return status;
+		}
+
+		public void setStatus(String status) {
+			this.status = status;
+		}
 
 		public int getForumId() {
 			return forumId;
@@ -70,12 +85,13 @@ import org.springframework.stereotype.Component;
 			this.userName = userName;
 		}
 
-		public Timestamp getCreateDate() {
+		public Date getCreateDate() {
 			return createDate;
 		}
 
-		public void setCreateDate() {
-			this.createDate = new Timestamp(System.currentTimeMillis());
+		public void setCreateDate(Date createDate) {
+		
+			this.createDate = createDate;
 		}
 		
 		

@@ -14,11 +14,13 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.niit.dao.BlogDao;
 import com.niit.daoImpl.BlogDaoImpl;
+import com.niit.model.ApplyJob;
 //import com.niit.daoImpl.BlogDaoImpl;
 import com.niit.model.Blog;
+import com.niit.model.BlogComment;
 import com.niit.model.Forum;
+import com.niit.model.ForumComment;
 import com.niit.model.Job;
 import com.niit.model.User;
 
@@ -62,6 +64,9 @@ public class DBConfig {
     	sessionBuilder.addAnnotatedClasses(Forum.class);
         sessionBuilder.addAnnotatedClass(Job.class);
     	sessionBuilder.addAnnotatedClass(User.class);
+    	sessionBuilder.addAnnotatedClass(BlogComment.class);
+    	sessionBuilder.addAnnotatedClass(ForumComment.class);
+    	sessionBuilder.addAnnotatedClass(ApplyJob.class);
     	//SessionFactory sessionFactory = sessionBuilder.buildSessionFactory();
 		System.out.println("<---------Session object created--------->");
 		return sessionBuilder.buildSessionFactory();

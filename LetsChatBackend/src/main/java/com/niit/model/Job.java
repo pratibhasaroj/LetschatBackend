@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Component
 @Entity
 @Table(name="Job")
@@ -23,12 +25,13 @@ public class Job {
 	@Column(name = "jobId")
 	private int jobId;
 	
-	@Column(name = "jobTitle")
-	private String jobTitle;
+	@Column(name = "company")
+	private String company;
 	
 	@Column(name = "jobDescription")
 	private String jobDescription;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	@Column(name = "postedDate")
 	private Date postedDate;
 	
@@ -37,6 +40,9 @@ public class Job {
 	
 	@Column(name="designation")
 	private String desgination;
+	
+	@Column(name="location")
+	private String location;
 
 	public int getJobId() {
 		return jobId;
@@ -46,12 +52,22 @@ public class Job {
 		this.jobId = jobId;
 	}
 
-	public String getJobTitle() {
-		return jobTitle;
+	
+
+	public String getCompany() {
+		return company;
 	}
 
-	public void setJobTitle(String jobTitle) {
-		this.jobTitle = jobTitle;
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public String getJobDescription() {
